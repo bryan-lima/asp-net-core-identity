@@ -29,6 +29,7 @@ namespace AspNetCoreIdentity
             services.AddDbContext<AspNetCoreIdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AspNetCoreIdentityContextConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddRoles<IdentityRole>()
                     .AddDefaultUI()
                     .AddEntityFrameworkStores<AspNetCoreIdentityContext>();
 
