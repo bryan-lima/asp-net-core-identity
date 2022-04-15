@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AspNetCoreIdentity.Controllers
 {
@@ -24,6 +20,8 @@ namespace AspNetCoreIdentity.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            _logger.LogInformation("Usuário acessou a Home!");
+
             return View();
         }
 
@@ -36,6 +34,16 @@ namespace AspNetCoreIdentity.Controllers
         [Authorize(Roles = "Admin, Gestor")]
         public IActionResult Secret()
         {
+            try
+            {
+                throw new Exception("Algo horrível ocorreu!");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "");
+                throw;
+            }
+
             return View();
         }
 

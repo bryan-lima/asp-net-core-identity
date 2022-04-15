@@ -1,11 +1,7 @@
-using AspNetCoreIdentity.Areas.Identity.Data;
 using AspNetCoreIdentity.Config;
-using AspNetCoreIdentity.Extensions;
-using Microsoft.AspNetCore.Authorization;
+using KissLog.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -56,6 +52,8 @@ namespace AspNetCoreIdentity
                 app.UseHsts();
             }
 
+            app.UseKissLogMiddleware(options => LogConfig.ConfigureKissLog(options, Configuration));
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -74,7 +72,7 @@ namespace AspNetCoreIdentity
             //    endpoints.MapRazorPages();
             //});
 
-            app.UseMvc(routes => 
+            app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
