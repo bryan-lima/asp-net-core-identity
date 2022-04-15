@@ -1,5 +1,6 @@
 ﻿using AspNetCoreIdentity.Extensions;
 using AspNetCoreIdentity.Models;
+using KissLog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,9 +11,9 @@ namespace AspNetCoreIdentity.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IKLogger _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IKLogger logger)
         {
             _logger = logger;
         }
@@ -20,7 +21,7 @@ namespace AspNetCoreIdentity.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            _logger.LogInformation("Usuário acessou a Home!");
+            _logger.Trace("Usuário acessou a Home!");
 
             return View();
         }
@@ -40,7 +41,7 @@ namespace AspNetCoreIdentity.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "");
+                _logger.Error(ex, "");
                 throw;
             }
 
