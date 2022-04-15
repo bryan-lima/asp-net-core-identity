@@ -1,4 +1,5 @@
 using AspNetCoreIdentity.Config;
+using AspNetCoreIdentity.Extensions;
 using KissLog.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +37,11 @@ namespace AspNetCoreIdentity
 
             services.AddControllersWithViews();
 
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMvc(options => 
+            {
+                options.EnableEndpointRouting = false;
+                options.Filters.Add(typeof(AuditoriaFilter));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

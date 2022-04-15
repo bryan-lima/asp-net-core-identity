@@ -33,9 +33,9 @@ namespace AspNetCoreIdentity.Config
                 });
             });
 
+            services.AddScoped<AuditoriaFilter>();
+
             return services;
         }
-
-
     }
 }
